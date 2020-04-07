@@ -15,7 +15,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->paginate(5);
-        \Debugbar::info($posts);
+        // /Debugbar::info($posts);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -64,6 +64,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('edit', $post);
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -79,6 +80,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->body =$request->body;
         $post->save();
+        $this->authorize('edit', $post);
         return redirect('posts/'.$post->id);
     }
 
@@ -91,6 +93,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+        $this->authorize('edit', $post);
         return redirect('posts');
     }
 
