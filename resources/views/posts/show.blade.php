@@ -6,6 +6,7 @@
 <div class="container">
     <h1 id="post-title">{{ $title }}</h1>
 
+@can('edit', $post)
     {{-- 編集・削除ボタン --}}
     <div class="edit">
         <a href="{{ url('posts/'.$post->id.'/edit') }}" class="btn btn-primary">
@@ -17,6 +18,7 @@
             @slot('name', $post->title)
         @endcomponent
     </div>
+@endcan
 
     {{-- 記事内容 --}}
     <dl class="row">
