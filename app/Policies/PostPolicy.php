@@ -4,6 +4,7 @@ namespace app\Policies;
 
 use app\User;
 use app\Post;
+
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostPolicy
@@ -19,6 +20,7 @@ class PostPolicy
     {
         //
     }
+
         /**
      * 管理者には全ての行動を認可する。
      * 参照: https://qiita.com/inaka_phper/items/09e730bf5a0abeb9e51a

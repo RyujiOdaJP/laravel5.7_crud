@@ -18,6 +18,7 @@ class UserPolicy
     {
         //
     }
+
     public function before($user, $ability)
     {
         return $user->isAdmin() ? true : null;
@@ -33,5 +34,4 @@ class UserPolicy
     {
         return $user->id == $model->id;
     }
-
 }
