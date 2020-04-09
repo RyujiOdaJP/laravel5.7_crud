@@ -53,6 +53,7 @@ class User extends Authenticatable
     {
         $this->notify(new TextPasswordReset($token));
     }
+
      /**
      * 現在のユーザー、または引数で渡されたIDが管理者かどうかを返す
      *

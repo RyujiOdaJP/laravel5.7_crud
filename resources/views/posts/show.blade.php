@@ -5,7 +5,8 @@
 @section('content')
 <div class="container">
     <h1 id="post-title">{{ $title }}</h1>
-
+@auth
+@can('edit', $post)
     {{-- 編集・削除ボタン --}}
     <div class="edit">
         <a href="{{ url('posts/'.$post->id.'/edit') }}" class="btn btn-primary">
@@ -17,7 +18,8 @@
             @slot('name', $post->title)
         @endcomponent
     </div>
-
+@endcan
+@endauth
     {{-- 記事内容 --}}
     <dl class="row">
         <dt class="col-md-2">{{ __('Auther') }}:</dt>

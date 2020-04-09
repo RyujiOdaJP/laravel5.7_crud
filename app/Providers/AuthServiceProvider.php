@@ -8,6 +8,10 @@ use app\Post;
 use app\Policies\PostPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use app\User;
+use app\Policies\UserPolicy;
+use app\Post;
+use app\Policies\PostPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,7 +23,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'app\Model' => 'app\Policies\ModelPolicy',
         User::class => UserPolicy::class,
-        Post::class => PostPolicy::class
+        Post::class => PostPolicy::class,
+
     ];
 
     /**

@@ -6,6 +6,10 @@
 <div class="container">
     <h1>{{ $title }}</h1>
 
+{{-- 管理者のページを表示中の場合は、編集・削除ボタンを表示させない --}}                
+@if (Auth::check() && !Auth::user()->isAdmin($user->id))
+@auth
+@can('edit', $user)
     {{-- 編集・削除ボタン --}}
     <div>
         <a href="{{ url('users/'.$user->id.'/edit') }}" class="btn btn-primary">
@@ -17,6 +21,9 @@
             @slot('name', $user->title)
         @endcomponent
     </div>
+@endcan
+@endauth
+@endif
 
     {{-- ユーザー1件の情報 --}}
     <dl class="row">
@@ -38,8 +45,10 @@
                     <th>{{ __('Created') }}</th>
                     <th>{{ __('Updated') }}</th>
 
-                    {{-- 記事の編集・削除ボタンのカラム --}}
-                    <th></th>
+                {{-- 記事の編集・削除ボタンのカラム --}}
+                    @auth
+                        @can('edit', $user)<th></th>@endcan
+                    @endauth
                 </tr>
             </thead>
             <tbody>
@@ -53,7 +62,11 @@
                         <td>{{ $post->body }}</td>
                         <td>{{ $post->created_at }}</td>
                         <td>{{ $post->updated_at }}</td>
-                        <td nowrap>
+                
+                    {{-- 管理者のページを表示中の場合は、編集・削除ボタンを表示させない --}}                
+                    @if (Auth::check() && !Auth::user()->isAdmin($user->id))
+                    @auth
+                        @can('edit', $user)<td nowrap>
                             <a href="{{ url('posts/' . $post->id . '/edit') }}" class="btn btn-primary">
                                 {{ __('Edit') }}
                             </a>
@@ -63,7 +76,11 @@
                                 @slot('name', $post->title)
                             @endcomponent
                         </td>
+                    @endcan
+                @endauth
+                @endif
                      </tr>
+
                 @endforeach
             </tbody>
         </table>
