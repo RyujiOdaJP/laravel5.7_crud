@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <h1 id="post-title">{{ $title }}</h1>
-
+@auth
 @can('edit', $post)
     {{-- 編集・削除ボタン --}}
     <div class="edit">
@@ -19,7 +19,7 @@
         @endcomponent
     </div>
 @endcan
-
+@endauth
     {{-- 記事内容 --}}
     <dl class="row">
         <dt class="col-md-2">{{ __('Auther') }}:</dt>

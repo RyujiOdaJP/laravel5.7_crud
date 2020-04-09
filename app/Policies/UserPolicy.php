@@ -18,7 +18,11 @@ class UserPolicy
     {
         //
     }
-/**
+    public function before($user, $ability)
+    {
+        return $user->isAdmin() ? true : null;
+    }
+    /**
      * 編集と削除の認可を判断する。
      *
      * @param  \App\User $user  現在ログインしているユーザー
