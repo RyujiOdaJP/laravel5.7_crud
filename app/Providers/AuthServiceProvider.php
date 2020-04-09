@@ -8,10 +8,6 @@ use app\Post;
 use app\Policies\PostPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use app\User;
-use app\Policies\UserPolicy;
-use app\Post;
-use app\Policies\PostPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
