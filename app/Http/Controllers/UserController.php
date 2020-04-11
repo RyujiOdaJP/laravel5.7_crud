@@ -5,6 +5,7 @@ namespace app\Http\Controllers;
 use Illuminate\Http\Request;
 use app\User;
 use GuzzleHttp\Middleware;
+use app\Http\Requests\StoreUser;
 
 class UserController extends Controller
 {
@@ -32,10 +33,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \app\Http\Requests\StoreUser $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
         $user = new User;
         $user->name = $request->name;
@@ -80,6 +81,11 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $this->authorize('edit', $user);
+
+        // name欄だけを検査するため、元のStoreUserクラス内のバリデーション・ルールからname欄のルールだけを取り出す。
+        $request->validate([
+            'name' => (new StoreUser())->rules()['name']
+            ]);
         $user->name = $request->name;
         $user->save();
         return redirect('users/'.$user->id);
