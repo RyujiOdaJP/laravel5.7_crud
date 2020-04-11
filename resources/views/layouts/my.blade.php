@@ -121,14 +121,23 @@
             </div>
         </nav>
 
+        {{--Flash message--}}
+        @if (session('my_status'))
+        <div class="container mt-2">
+            <div class="alert alert-succsess">
+                {{ session('my_status') }}
+            </div>
+        </div>
+        @endif
         <main class="py-4">
             @yield('content')
         </main>
     </div>
 
+    <!-- changed asset('css/app.css') to asset('js/app.js') -->
     {{-- JavaScript --}}
     @if(app('env') == 'production')
-    <script src="{{ secure_asset('css/app.css') }}" ></script>
+    <script src="{{ secure_asset('js/app.js') }}" ></script>
     @else
     <script src="{{ asset('js/app.js') }}"></script>
     @endif
