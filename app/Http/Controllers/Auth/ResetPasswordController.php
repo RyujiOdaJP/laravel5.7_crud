@@ -4,6 +4,7 @@ namespace app\Http\Controllers\Auth;
 
 use app\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use app\Http\Requests\StoreUser;
 
 class ResetPasswordController extends Controller
 {
@@ -27,6 +28,19 @@ class ResetPasswordController extends Controller
      */
     protected $redirectTo = '/';
 
+    /**
+     * パスワード再設定用のバリデーションルール
+     *
+     * @return array
+     */
+    protected function rules()
+    {
+        return [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => (new StoreUser())->rules()['password'],
+        ];
+    }
     /**
      * Create a new controller instance.
      *

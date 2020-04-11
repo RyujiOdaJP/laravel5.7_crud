@@ -1,5 +1,5 @@
 @php
-    title = __('reset_password');
+    $title = __('reset_password');
 @endphp
 @extends('layouts.my')
 
