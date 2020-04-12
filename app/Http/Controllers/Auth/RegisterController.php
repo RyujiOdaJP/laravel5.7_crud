@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use app\Http\Requests\StoreUser;
+use Illuminate\Http\Response;
 
 class RegisterController extends Controller
 {
@@ -71,5 +72,12 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+    
+    protected function registered(\Illuminate\Http\Request $request, $user)
+    {
+        //after registered users are going to jump to profile page.
+        return redirect('users/' . $user->id)->with('my_status', __('Registration have not yet completed.').
+        __('Check your email for a verification link'));
     }
 }
