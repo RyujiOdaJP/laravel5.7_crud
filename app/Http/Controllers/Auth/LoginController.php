@@ -31,7 +31,7 @@ class LoginController extends Controller
     protected function authenticated(\Illuminate\Http\Request $request, $user)
     {
         //after logged in transit to user profile top.
-        return redirect('users/' . $user->id)->with('my_status', __('You logged in'));
+        return redirect('users/' . $user->id)->with('my_status', __('You logged in.'));
     }
 
     /**
@@ -43,7 +43,7 @@ class LoginController extends Controller
     {
         $this->guard()->logout();
         $request->session()->invalidate();
-        return $this->loggedOut($request) ?: redirect('/')->with('my_status', __('You logged out'));
+        return $this->loggedOut($request) ?: redirect('/')->with('my_status', __('You logged out.'));
     }
 
     /**
