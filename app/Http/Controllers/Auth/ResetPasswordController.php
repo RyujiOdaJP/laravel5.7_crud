@@ -5,6 +5,7 @@ namespace app\Http\Controllers\Auth;
 use app\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use app\Http\Requests\StoreUser;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -40,6 +41,13 @@ class ResetPasswordController extends Controller
             'email' => 'required|email',
             'password' => (new StoreUser())->rules()['password'],
         ];
+    }
+
+    protected function sendResetResponse(Request $request, $response)
+    {
+        // リダイレクト先でフラッシュメッセージを表示する
+        return redirect($this->redirectPath())
+                            ->with('my_status', trans($response));
     }
     /**
      * Create a new controller instance.

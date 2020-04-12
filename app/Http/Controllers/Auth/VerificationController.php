@@ -3,7 +3,11 @@
 namespace app\Http\Controllers\Auth;
 
 use app\Http\Controllers\Controller;
+use app\Http\Controllers\Auth\Request;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Http\Request as HttpRequest;
 
 class VerificationController extends Controller
 {
@@ -37,5 +41,18 @@ class VerificationController extends Controller
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+    /**
+     * ユーザーのメールアドレスを確認完了とする
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function verify(HttpRequest $request)
+    {
+        if ($request->route('id') == $request->user()->getKey() &&
+            $request->user()->markEmailAsVerified()){
+                event(new Verified($request->user()));
+            }
     }
 }
