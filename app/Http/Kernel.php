@@ -19,6 +19,12 @@ class Kernel extends HttpKernel
         \app\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \app\Http\Middleware\TrustProxies::class,
+
+        //moved from 'web' =>[]
+        \app\Http\Middleware\EncryptCookies::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \app\Http\Middleware\CheckLocale::class, //created myself
     ];
 
     /**
@@ -28,14 +34,15 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \app\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
+            // \app\Http\Middleware\EncryptCookies::class,
+            // \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            //\Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \app\Http\Middleware\VerifyCsrfToken::class,
+            //\app\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \app\Http\Middleware\CheckLocale::class,
+            \app\Http\Middleware\VerifyCsrfToken::class,
+            //\app\Http\Middleware\CheckLocale::class,
         ],
 
         'api' => [
