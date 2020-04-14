@@ -67,6 +67,7 @@
         "compile": [
             "@php -r \"file_exists('.env') || copy('.env.heroku', '.env');\""
         ],
-        "test": "phpunit"
+        "test": "phpunit",
+        "cover": "phpunit --coverage-html coverage"
     }
 }

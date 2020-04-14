@@ -14,3 +14,4 @@ swaks
 .vscode
 .env.example
 /resources/views/foo/foo4.blade.php
+/coverage
